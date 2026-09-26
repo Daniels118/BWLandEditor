@@ -1,0 +1,13 @@
+package it.ld.bw.info;
+
+public enum PlayerInfo {
+	PLAYER_ONE,
+	PLAYER_TWO,
+	PLAYER_THREE,
+	PLAYER_FOUR,
+	PLAYER_FIVE,
+	PLAYER_SIX,
+	PLAYER_SEVEN,
+	PLAYER_EIGHT,
+	NEUTRAL;
+}

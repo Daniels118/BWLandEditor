@@ -1,0 +1,143 @@
+/* Copyright (c) 2026 Daniele Lombardi / Daniels118 */
+package it.ld.bw.info;
+
+import java.io.IOException;
+import it.ld.utils.EndianDataInputStream;
+import it.ld.utils.EndianDataOutputStream;
+import it.ld.utils.Struct;
+
+public class IsReacting extends Struct {
+    public int isFleeingFromObject;
+    public int isLookingAtObject;
+    public int isFollowingObject;
+    public int isFleeingFromSpell;
+    public int isLookingAtSpell;
+    public int isFollowingSpell;
+    public int isReactingToCreature;
+    public int isReactingToFood;
+    public int isReactingToMagicTree;
+    public int isReactingToFlyingObject;
+    public int isReactingToAbodeBurning;
+    public int isReactingToBall;
+    public int isReactingToWood;
+    public int isReactingToMagicShield;
+    public int isReactingToGift;
+    public int isReactingToNewBuilding;
+    public int isReactingToHandPickUp;
+    public int isReactingToHandUsingTotem;
+    public int isReactingToObjectCrushed;
+    public int isReactingToFight;
+    public int isReactingToTeleport;
+    public int isReactingToNiceSpell;
+    public int isReactingToHandPuttingStuffInStoragePit;
+    public int isReactingToDeath;
+    public int isReactingToDroppedByHand;
+    public int isReactingToFainting;
+    public int isReactingToConfused;
+    public int isReactingToFallingTree;
+    public int isFleeingFromPredator;
+    public int isReactingInCrowd;
+    public int isReactingToBreeder;
+    public int isReactingToTownCelebration;
+    public int isReactingToVillagerInHand;
+    public int isReactingToBurningThingInHand;
+    public int isReactingToMagicWaterPuttingOutFire;
+    public int isReactingToMagicShieldStruck;
+    public int isReactingToMagicShieldDestroyed;
+    public int isReactingToImpressiveSpell;
+    public int isReactingToScaffold;
+    public int isReactingToMissionary;
+    public int isReactingToFightWon;
+
+    @Override
+    public void read(EndianDataInputStream str) throws IOException {
+        little(str);
+        isFleeingFromObject = str.readInt();
+        isLookingAtObject = str.readInt();
+        isFollowingObject = str.readInt();
+        isFleeingFromSpell = str.readInt();
+        isLookingAtSpell = str.readInt();
+        isFollowingSpell = str.readInt();
+        isReactingToCreature = str.readInt();
+        isReactingToFood = str.readInt();
+        isReactingToMagicTree = str.readInt();
+        isReactingToFlyingObject = str.readInt();
+        isReactingToAbodeBurning = str.readInt();
+        isReactingToBall = str.readInt();
+        isReactingToWood = str.readInt();
+        isReactingToMagicShield = str.readInt();
+        isReactingToGift = str.readInt();
+        isReactingToNewBuilding = str.readInt();
+        isReactingToHandPickUp = str.readInt();
+        isReactingToHandUsingTotem = str.readInt();
+        isReactingToObjectCrushed = str.readInt();
+        isReactingToFight = str.readInt();
+        isReactingToTeleport = str.readInt();
+        isReactingToNiceSpell = str.readInt();
+        isReactingToHandPuttingStuffInStoragePit = str.readInt();
+        isReactingToDeath = str.readInt();
+        isReactingToDroppedByHand = str.readInt();
+        isReactingToFainting = str.readInt();
+        isReactingToConfused = str.readInt();
+        isReactingToFallingTree = str.readInt();
+        isFleeingFromPredator = str.readInt();
+        isReactingInCrowd = str.readInt();
+        isReactingToBreeder = str.readInt();
+        isReactingToTownCelebration = str.readInt();
+        isReactingToVillagerInHand = str.readInt();
+        isReactingToBurningThingInHand = str.readInt();
+        isReactingToMagicWaterPuttingOutFire = str.readInt();
+        isReactingToMagicShieldStruck = str.readInt();
+        isReactingToMagicShieldDestroyed = str.readInt();
+        isReactingToImpressiveSpell = str.readInt();
+        isReactingToScaffold = str.readInt();
+        isReactingToMissionary = str.readInt();
+        isReactingToFightWon = str.readInt();
+    }
+
+    @Override
+    public void write(EndianDataOutputStream str) throws IOException {
+        little(str);
+        str.writeInt(isFleeingFromObject);
+        str.writeInt(isLookingAtObject);
+        str.writeInt(isFollowingObject);
+        str.writeInt(isFleeingFromSpell);
+        str.writeInt(isLookingAtSpell);
+        str.writeInt(isFollowingSpell);
+        str.writeInt(isReactingToCreature);
+        str.writeInt(isReactingToFood);
+        str.writeInt(isReactingToMagicTree);
+        str.writeInt(isReactingToFlyingObject);
+        str.writeInt(isReactingToAbodeBurning);
+        str.writeInt(isReactingToBall);
+        str.writeInt(isReactingToWood);
+        str.writeInt(isReactingToMagicShield);
+        str.writeInt(isReactingToGift);
+        str.writeInt(isReactingToNewBuilding);
+        str.writeInt(isReactingToHandPickUp);
+        str.writeInt(isReactingToHandUsingTotem);
+        str.writeInt(isReactingToObjectCrushed);
+        str.writeInt(isReactingToFight);
+        str.writeInt(isReactingToTeleport);
+        str.writeInt(isReactingToNiceSpell);
+        str.writeInt(isReactingToHandPuttingStuffInStoragePit);
+        str.writeInt(isReactingToDeath);
+        str.writeInt(isReactingToDroppedByHand);
+        str.writeInt(isReactingToFainting);
+        str.writeInt(isReactingToConfused);
+        str.writeInt(isReactingToFallingTree);
+        str.writeInt(isFleeingFromPredator);
+        str.writeInt(isReactingInCrowd);
+        str.writeInt(isReactingToBreeder);
+        str.writeInt(isReactingToTownCelebration);
+        str.writeInt(isReactingToVillagerInHand);
+        str.writeInt(isReactingToBurningThingInHand);
+        str.writeInt(isReactingToMagicWaterPuttingOutFire);
+        str.writeInt(isReactingToMagicShieldStruck);
+        str.writeInt(isReactingToMagicShieldDestroyed);
+        str.writeInt(isReactingToImpressiveSpell);
+        str.writeInt(isReactingToScaffold);
+        str.writeInt(isReactingToMissionary);
+        str.writeInt(isReactingToFightWon);
+    }
+}

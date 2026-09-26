@@ -1,0 +1,10 @@
+cd into this folder, then run the appropriate command
+
+- To build a runnable jar (output to desktop\build\libs):
+gradlew desktop:jarWindows
+
+- To build a portable folder with an exe launcher and bundled JRE (output to desktop\build\jpackage):
+gradlew clean desktop:jpackageImage
+
+- To build a MSI installer (requires WiX 3. Output to desktop\build\jpackage):
+gradlew clean desktop:jpackage

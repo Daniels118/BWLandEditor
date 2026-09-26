@@ -1,0 +1,27 @@
+Version 0.5
+- Implemented parsing of LHX script files
+- Fixed folder picker dialog
+
+Version 0.4
+- Added language setting
+- Added languages: Italian
+
+Version 0.3
+- Metadata manager (store brushes)
+- Land shadows
+- Improved default sound for sculpt brush (coast/interland)
+- Import height maps
+- Import land from another file
+- Select, cut/copy and paste land pieces
+- Select and drag land pieces
+- Added perspective camera
+- Allow multiple instances
+- Added random landscape generator
+- Added block inspector
+- Handle corrupted blocks
+- Display footpaths
+
+- Fixed sculpt brush painting country outside brush edge
+- Fixed sculpt brush smooth mode not working where slope > max slope
+- Fixed ArrayIndexOutOfBoundsException when removing blocks
+- Fixed measure distance tool activated by ESCAPE key

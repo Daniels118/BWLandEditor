@@ -1,0 +1,40 @@
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = ["src/"]
+
+def generatedVersionDir = layout.buildDirectory.dir("generated/sources/version")
+
+tasks.register("generateVersionClass") {
+    inputs.property("version", project.version)
+    outputs.dir(generatedVersionDir)
+
+    doLast {
+        def file = generatedVersionDir.get()
+                .file("it/ld/bw/lndgui/BuildInfo.java")
+                .asFile
+
+        file.parentFile.mkdirs()
+        file.text = """package it.ld.bw.lndgui;
+
+public final class BuildInfo {
+    public static final String VERSION = "${project.version}";
+    private BuildInfo() {}
+}
+"""
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir generatedVersionDir
+        }
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn tasks.named("generateVersionClass")
+}
+
+eclipse.project.name = appName + "-core"

@@ -1,0 +1,352 @@
+package it.ld.bw.info;
+
+import java.io.ByteArrayInputStream;
+import java.util.function.Supplier;
+
+import it.ld.utils.EndianDataInputStream;
+import it.ld.utils.EndianDataOutputStream;
+import it.ld.utils.Struct;
+
+//TODO reverse CI format
+public class InfoConstants extends Struct {
+	public static final int MAGIC_GENERAL_COUNT = 10;
+	public static final int MAGIC_HEAL_COUNT = 2;
+	public static final int MAGIC_TELEPORT_COUNT = 1;
+	public static final int MAGIC_FOREST_COUNT = 1;
+	public static final int MAGIC_FOOD_COUNT = 2;
+	public static final int MAGIC_STORM_AND_TORNADO_COUNT = 3;
+	public static final int MAGIC_SHIELD_COUNT = 2;
+	public static final int MAGIC_WOOD_COUNT = 1;
+	public static final int MAGIC_WATER_COUNT = 2;
+	public static final int MAGIC_FLOCK_FLYING_COUNT = 1;
+	public static final int MAGIC_FLOCK_GROUND_COUNT = 1;
+	public static final int MAGIC_CREATURE_SPELL_COUNT_VANILLA = 16;
+	public static final int MAGIC_CREATURE_SPELL_COUNT_CI = 18;
+	public static final int MAGIC_EFFECT_COUNT_VANILLA = 42;
+	public static final int MAGIC_EFFECT_COUNT_CI = 44;
+	public static final int SPELL_SEED_COUNT_VANILLA = 30;
+	public static final int SPELL_SEED_COUNT_CI = 32;
+	public static final int ANIMAL_COUNT = 31;
+	public static final int CREATURE_COUNT_VANILLA = 17;
+	public static final int CREATURE_COUNT_CI = 19;
+	public static final int DIFFERENT_CREATURE_COUNT_VANILLA = 17;
+	public static final int DIFFERENT_CREATURE_COUNT_CI = 19;
+	public static final int CREATURE_DESIRE_FOR_TYPE_COUNT = 40;
+	public static final int CREATURE_DEVELOPMENT_PHASE_COUNT = 14;
+	public static final int CREATURE_DEVELOPMENT_DURATION_COUNT = 17;
+	public static final int CREATURE_PEN_COUNT = 5;
+	public static final int WORSHIP_SITE_COUNT = 9;
+	public static final int SPELL_ICON_COUNT = 2;
+	public static final int ABODE_COUNT = 147;
+	public static final int VILLAGER_COUNT = 84;
+	public static final int SPECIAL_VILLAGER_COUNT = 0x30;
+	public static final int TREE_COUNT = 23;
+	public static final int SINGLE_MAP_FIXED_COUNT = 4;
+	public static final int SCRIPT_HIGHLIGHT_COUNT = 4;
+	public static final int MAP_SHIELD_COUNT = 2;
+	public static final int JOB_COUNT = 16;
+	public static final int FEATURE_COUNT = 76;
+	public static final int FLOWERS_COUNT = 2;
+	public static final int ANIMATED_STATIC_COUNT = 16;
+	public static final int MOBILE_OBJECT_COUNT = 32;
+	public static final int MOBILE_STATIC_COUNT = 61;
+	public static final int POT_COUNT = 19;
+	public static final int SHOW_NEEDS_COUNT = 4;
+	public static final int TOWN_DESIRE_COUNT = 17;
+	public static final int HELP_SPIRIT_COUNT = 3;
+	public static final int SPOT_VISUAL_COUNT = 50;
+	public static final int EFFECT_COUNT = 12;
+	public static final int FIELD_COUNT = 2;
+	public static final int FIELD_TYPE_COUNT = 6;
+	public static final int FOOTBALL_POSITION_COUNT = 10;
+	public static final int PLAYTIME_COUNT = 5;
+	public static final int HELP_SPRITES_GUIDANCE_COUNT = 22;
+	public static final int ALIGNMENT_COUNT = 7;
+	public static final int REACTION_COUNT = 41;
+	public static final int CREATURE_ACTION_COUNT = 328;
+	public static final int CREATURE_DESIRE_ACTION1_COUNT = 40;
+	public static final int CREATURE_DESIRE_ACTION2_COUNT = 17;
+	public static final int CREATURE_DESIRE_ACTION3_COUNT = 40;
+	public static final int CREATURE_DESIRE_DEPENDENCY_COUNT = 40;
+	public static final int CREATURE_INITIAL_DESIRE_COUNT = 40;
+	public static final int DESIRE_SOURCE_TABLE_COUNT = 61;
+	public static final int CREATURE_INITIAL_SOURCE1_COUNT = 61;
+	public static final int CREATURE_INITIAL_SOURCE2_COUNT = 61;
+	public static final int CREATURE_SOURCE_BOUNDS_COUNT = 61;
+	public static final int CREATURE_DESIRE_ATTRIBUTE_COUNT = 40;
+	public static final int CREATURE_ACTION_KNOWN_ABOUT_COUNT = 6;
+	public static final int CREATURE_MAGIC_ACTION_KNOWN_ABOUT_COUNT = 42;
+	public static final int CREATURE_MIMIC_COUNT = 46;
+	public static final int TERRAIN_MATERIAL_COUNT = 43;
+	public static final int TRIBE_COUNT = 9;
+	public static final int SPEED_THRESHOLD_COUNT = 10;
+	public static final int P_FOOTBALL_POSITION_COUNT = 10;
+	public static final int DANCE_COUNT = 25;
+	public static final int VILLAGER_STATE_COUNT = 255;
+	public static final int ANIMAL_STATE_COUNT = 53;
+	public static final int TOTEM_STATUE_COUNT = 9;
+	public static final int BIG_FOREST_COUNT = 4;
+	public static final int FURNITURE_COUNT = 31;
+	public static final int WEATHER_COUNT = 7;
+	public static final int CLIMATE_COUNT = 7;
+	public static final int VORTEX_COUNT = 3;
+	public static final int MAGIC_FIRE_BALL_COUNT = 3;
+	public static final int REWARD_COUNT = 61;
+	public static final int REWARD_PROGRESS_GOOD_COUNT = 30;
+	public static final int REWARD_PROGRESS_EVIL_COUNT = 30;
+	public static final int SPOOKY_VOICE_COUNT = 5;
+	public static final int SCRIPT_OPPOSING_CREATURE_COUNT = 17;
+	public static final int TOOL_TIPS_COUNT = 170;
+	
+	
+	public final GMagicGeneralInfo[] magicGeneral = new GMagicGeneralInfo[MAGIC_GENERAL_COUNT];
+	public final GMagicHealInfo[] magicHeal = new GMagicHealInfo[MAGIC_HEAL_COUNT];
+	public final GMagicTeleportInfo[] magicTeleport = new GMagicTeleportInfo[MAGIC_TELEPORT_COUNT];
+	public final GMagicForestInfo[] magicForest = new GMagicForestInfo[MAGIC_FOREST_COUNT];
+	public final GMagicFoodInfo[] magicFood = new GMagicFoodInfo[MAGIC_FOOD_COUNT];
+	public final GMagicStormAndTornadoInfo[] magicStormAndTornado = new GMagicStormAndTornadoInfo[MAGIC_STORM_AND_TORNADO_COUNT];
+	public final GMagicShieldInfo[] magicShield = new GMagicShieldInfo[MAGIC_SHIELD_COUNT];
+	public final GMagicWoodInfo[] magicWood = new GMagicWoodInfo[MAGIC_WOOD_COUNT];
+	public final GMagicWaterInfo[] magicWater = new GMagicWaterInfo[MAGIC_WATER_COUNT];
+	public final GMagicFlockFlyingInfo[] magicFlockFlying = new GMagicFlockFlyingInfo[MAGIC_FLOCK_FLYING_COUNT];
+	public final GMagicFlockGroundInfo[] magicFlockGround = new GMagicFlockGroundInfo[MAGIC_FLOCK_GROUND_COUNT];
+	public final GMagicCreatureSpellInfo[] magicCreatureSpell;
+	public final GMagicEffectInfo[] magicEffect;
+	public final GSpellSeedInfo[] spellSeed;
+	public final GAnimalInfo[] animal = new GAnimalInfo[ANIMAL_COUNT];
+	public final GCreatureInfo[] creature;
+	public final DifferentCreatureInfo[] differentCreature;
+	public final CreatureDesireForType[] creatureDesireForType = new CreatureDesireForType[CREATURE_DESIRE_FOR_TYPE_COUNT];
+	public final CreatureDevelopmentPhaseEntry[] creatureDevelopmentPhaseEntry = new CreatureDevelopmentPhaseEntry[CREATURE_DEVELOPMENT_PHASE_COUNT];
+	public final CreatureDevelopmentDurationEntry[] creatureDevelopmentDurationEntry = new CreatureDevelopmentDurationEntry[CREATURE_DEVELOPMENT_DURATION_COUNT];
+	public final GCitadelInfo citadel = new GCitadelInfo();
+	public final GCitadelHeartInfo citadelHeart = new GCitadelHeartInfo();
+	public final GCreaturePenInfo[] creaturePen = new GCreaturePenInfo[CREATURE_PEN_COUNT];
+	public final GWorshipSiteInfo[] worshipSite = new GWorshipSiteInfo[WORSHIP_SITE_COUNT];
+	public final GSpellIconInfo[] spellIcon = new GSpellIconInfo[SPELL_ICON_COUNT];
+	public final GAbodeInfo[] abode = new GAbodeInfo[ABODE_COUNT];
+	public final GVillagerInfo[] villager = new GVillagerInfo[VILLAGER_COUNT];
+	public final GSpecialVillagerInfo[] specialVillager = new GSpecialVillagerInfo[SPECIAL_VILLAGER_COUNT];
+	public final GTreeInfo[] tree = new GTreeInfo[TREE_COUNT];
+	public final GSingleMapFixedInfo[] singleMapFixed = new GSingleMapFixedInfo[SINGLE_MAP_FIXED_COUNT];
+	public final GScriptHighlightInfo[] scriptHighlight = new GScriptHighlightInfo[SCRIPT_HIGHLIGHT_COUNT];
+	public final GMapShieldInfo[] mapShield = new GMapShieldInfo[MAP_SHIELD_COUNT];
+	public final GBallInfo ball = new GBallInfo();
+	public final GTownInfo town = new GTownInfo();
+	public final GJobInfo[] job = new GJobInfo[JOB_COUNT];
+	public final GFeatureInfo[] feature = new GFeatureInfo[FEATURE_COUNT];
+	public final GFlowersInfo[] flowers = new GFlowersInfo[FLOWERS_COUNT];
+	public final GAnimatedStaticInfo[] animatedStatic = new GAnimatedStaticInfo[ANIMATED_STATIC_COUNT];
+	public final GMobileObjectInfo[] mobileObject = new GMobileObjectInfo[MOBILE_OBJECT_COUNT];
+	public final GScaffoldInfo scaffold = new GScaffoldInfo();
+	public final GMobileStaticInfo[] mobileStatic = new GMobileStaticInfo[MOBILE_STATIC_COUNT];
+	public final GPotInfo[] pot = new GPotInfo[POT_COUNT];
+	public final GPrayerIconInfo prayerIcon = new GPrayerIconInfo();
+	public final GPrayerSiteInfo prayerSite = new GPrayerSiteInfo();
+	public final GShowNeedsInfo[] showNeeds = new GShowNeedsInfo[SHOW_NEEDS_COUNT];
+	public final GTownDesireInfo[] townDesire = new GTownDesireInfo[TOWN_DESIRE_COUNT];
+	public final GWorshipSiteUpgradeInfo worshipSiteUpgrade = new GWorshipSiteUpgradeInfo();
+	public final HelpSpiritInfo[] helpSpirit = new HelpSpiritInfo[HELP_SPIRIT_COUNT];
+	public final GArrowInfo arrow = new GArrowInfo();
+	public final GSpotVisualInfo[] spotVisual = new GSpotVisualInfo[SPOT_VISUAL_COUNT];
+	public final GEffectInfo[] effect = new GEffectInfo[EFFECT_COUNT];
+	public final GFieldInfo[] field = new GFieldInfo[FIELD_COUNT];
+	public final GFieldTypeInfo[] fieldType = new GFieldTypeInfo[FIELD_TYPE_COUNT];
+	public final GFishFarmInfo fishFarm = new GFishFarmInfo();
+	public final GFootballPositionInfo[] footballPosition = new GFootballPositionInfo[FOOTBALL_POSITION_COUNT];
+	public final GPlaytimeInfo[] playtime = new GPlaytimeInfo[PLAYTIME_COUNT];
+	public final GPlayerInfo player = new GPlayerInfo();
+	public final GSoundInfo sound = new GSoundInfo();
+	public final GBeliefInfo belief = new GBeliefInfo();
+	public final GHelpSpritesGuidance[] helpSpritesGuidance = new GHelpSpritesGuidance[HELP_SPRITES_GUIDANCE_COUNT];
+	public final GInfluenceInfo influence = new GInfluenceInfo();
+	public final HelpSystemInfo helpSystem = new HelpSystemInfo();
+	public final GAlignmentInfo[] alignment = new GAlignmentInfo[ALIGNMENT_COUNT];
+	public final ReactionInfo[] reaction = new ReactionInfo[REACTION_COUNT];
+	public final CreatureActionInfo[] creatureAction = new CreatureActionInfo[CREATURE_ACTION_COUNT];
+	public final CreatureDesireActionEntry[] creatureDesireAction1 = new CreatureDesireActionEntry[CREATURE_DESIRE_ACTION1_COUNT];
+	public final CreatureDesireActionEntry[] creatureDesireAction2 = new CreatureDesireActionEntry[CREATURE_DESIRE_ACTION2_COUNT];
+	public final CreatureDesireActionEntry[] creatureDesireAction3 = new CreatureDesireActionEntry[CREATURE_DESIRE_ACTION3_COUNT];
+	public final CreatureDesireDependency[] creatureDesireDependency = new CreatureDesireDependency[CREATURE_DESIRE_DEPENDENCY_COUNT];
+	public final CreatureInitialDesireInfo[] creatureInitialDesire = new CreatureInitialDesireInfo[CREATURE_INITIAL_DESIRE_COUNT];
+	public final CreatureDesireSourceTable[] desireSourceTable = new CreatureDesireSourceTable[DESIRE_SOURCE_TABLE_COUNT];
+	public final CreatureInitialSourceInfo[] creatureInitialSource1 = new CreatureInitialSourceInfo[CREATURE_INITIAL_SOURCE1_COUNT];
+	public final CreatureInitialSourceInfo[] creatureInitialSource2 = new CreatureInitialSourceInfo[CREATURE_INITIAL_SOURCE2_COUNT];
+	public final CreatureSourceBoundsInfo[] creatureSourceBounds = new CreatureSourceBoundsInfo[CREATURE_SOURCE_BOUNDS_COUNT];
+	public final CreatureDesireAttributeEntry[] creatureDesireAttribute = new CreatureDesireAttributeEntry[CREATURE_DESIRE_ATTRIBUTE_COUNT];
+	public final CreatureActionKnownAboutEntry[] creatureActionKnownAboutEntry = new CreatureActionKnownAboutEntry[CREATURE_ACTION_KNOWN_ABOUT_COUNT];
+	public final CreatureMagicActionKnownAboutEntry[] creatureMagicActionKnownAboutEntry = new CreatureMagicActionKnownAboutEntry[CREATURE_MAGIC_ACTION_KNOWN_ABOUT_COUNT];
+	public final CreatureMimicInfo[] creatureMimic = new CreatureMimicInfo[CREATURE_MIMIC_COUNT];
+	public final GTerrainMaterialInfo[] terrainMaterial = new GTerrainMaterialInfo[TERRAIN_MATERIAL_COUNT];
+	public final GTribeInfo[] tribe = new GTribeInfo[TRIBE_COUNT];
+	public final GSpeedThreshold[] speedThreshold = new GSpeedThreshold[SPEED_THRESHOLD_COUNT];
+	public final GPBallInfo pBall = new GPBallInfo();
+	public final GPFootballInfo pFootball = new GPFootballInfo();
+	public final GPFootballPositionInfo[] pFootballPosition = new GPFootballPositionInfo[P_FOOTBALL_POSITION_COUNT];
+	public final GDanceInfo[] dance = new GDanceInfo[DANCE_COUNT];
+	public final GVillagerStateTableInfo[] villagerStateTable = new GVillagerStateTableInfo[VILLAGER_STATE_COUNT];
+	public final GAnimalStateTableInfo[] animalStateTable = new GAnimalStateTableInfo[ANIMAL_STATE_COUNT];
+	public final GTotemStatueInfo[] totemStatue = new GTotemStatueInfo[TOTEM_STATUE_COUNT];
+	public final GBigForestInfo[] bigForest = new GBigForestInfo[BIG_FOREST_COUNT];
+	public final GFurnitureInfo[] furniture = new GFurnitureInfo[FURNITURE_COUNT];
+	public final GWeatherInfo[] weather = new GWeatherInfo[WEATHER_COUNT];
+	public final GClimateInfo[] climate = new GClimateInfo[CLIMATE_COUNT];
+	public final GSpellSystemInfo spellSystem = new GSpellSystemInfo();
+	public final GVortexInfo[] vortex = new GVortexInfo[VORTEX_COUNT];
+	public final GMagicFireBallInfo[] magicFireBall = new GMagicFireBallInfo[MAGIC_FIRE_BALL_COUNT];
+	public final GRewardInfo[] reward = new GRewardInfo[REWARD_COUNT];
+	public final GLeashSelectorInfo leashSelector = new GLeashSelectorInfo();
+	public final GRewardProgressGood[] rewardProgressGood = new GRewardProgressGood[REWARD_PROGRESS_GOOD_COUNT];
+	public final GRewardProgressEvil[] rewardProgressEvil = new GRewardProgressEvil[REWARD_PROGRESS_EVIL_COUNT];
+	public final GSpookyVoiceInfo[] spookyVoice = new GSpookyVoiceInfo[SPOOKY_VOICE_COUNT];
+	public final GScriptOpposingCreature[] scriptOpposingCreature = new GScriptOpposingCreature[SCRIPT_OPPOSING_CREATURE_COUNT];
+	public final GHelpSystemTooltipsInfo[] toolTips = new GHelpSystemTooltipsInfo[TOOL_TIPS_COUNT];
+	
+	private boolean ci;
+	
+	public InfoConstants(int filesize) throws Exception {
+		if (filesize == 582066) {
+			ci = false;
+			magicCreatureSpell = new GMagicCreatureSpellInfo[MAGIC_CREATURE_SPELL_COUNT_VANILLA];
+			magicEffect = new GMagicEffectInfo[MAGIC_EFFECT_COUNT_VANILLA];
+			spellSeed = new GSpellSeedInfo[SPELL_SEED_COUNT_VANILLA];
+			creature = new GCreatureInfo[CREATURE_COUNT_VANILLA];
+			differentCreature = new DifferentCreatureInfo[DIFFERENT_CREATURE_COUNT_VANILLA];
+		} else if (filesize == 627250) {
+			ci = true;
+			magicCreatureSpell = new GMagicCreatureSpellInfo[MAGIC_CREATURE_SPELL_COUNT_CI];
+			magicEffect = new GMagicEffectInfo[MAGIC_EFFECT_COUNT_CI];
+			spellSeed = new GSpellSeedInfo[SPELL_SEED_COUNT_CI];
+			creature = new GCreatureInfo[CREATURE_COUNT_CI];
+			differentCreature = new DifferentCreatureInfo[DIFFERENT_CREATURE_COUNT_CI];
+		} else {
+			throw new Exception("Invalid size");
+		}
+	}
+	
+	public void read(byte[] data) throws Exception {
+		try (ByteArrayInputStream bais = new ByteArrayInputStream(data)) {
+			read(bais);
+		}
+	}
+
+	@Override
+	public void read(EndianDataInputStream str) throws Exception {
+		little(str);
+		readArray(str, magicGeneral, GMagicGeneralInfo::new);
+		readArray(str, magicHeal, GMagicHealInfo::new);
+		readArray(str, magicTeleport, GMagicTeleportInfo::new);
+		readArray(str, magicForest, GMagicForestInfo::new);
+		readArray(str, magicFood, GMagicFoodInfo::new);
+		readArray(str, magicStormAndTornado, GMagicStormAndTornadoInfo::new);
+		readArray(str, magicShield, GMagicShieldInfo::new);
+		readArray(str, magicWood, GMagicWoodInfo::new);
+		readArray(str, magicWater, GMagicWaterInfo::new);
+		readArray(str, magicFlockFlying, GMagicFlockFlyingInfo::new);
+		readArray(str, magicFlockGround, GMagicFlockGroundInfo::new);
+		readArray(str, magicCreatureSpell, GMagicCreatureSpellInfo::new);
+		readArray(str, magicEffect, ci ? GMagicEffectInfo::newCI : GMagicEffectInfo::newVanilla);
+		readArray(str, spellSeed, ci ? GSpellSeedInfo::newCI : GSpellSeedInfo::newVanilla);
+		readArray(str, animal, ci ? GAnimalInfo::newCI : GAnimalInfo::newVanilla);
+		readArray(str, creature, ci ? GCreatureInfo::newCI : GCreatureInfo::newVanilla);
+		readArray(str, differentCreature, ci ? DifferentCreatureInfo::newCI : DifferentCreatureInfo::newVanilla);
+		readArray(str, creatureDesireForType, CreatureDesireForType::new);
+		readArray(str, creatureDevelopmentPhaseEntry, CreatureDevelopmentPhaseEntry::new);
+		readArray(str, creatureDevelopmentDurationEntry, CreatureDevelopmentDurationEntry::new);
+		citadel.read(str);
+		citadelHeart.read(str);
+		readArray(str, creaturePen, GCreaturePenInfo::new);
+		readArray(str, worshipSite, GWorshipSiteInfo::new);
+		readArray(str, spellIcon, GSpellIconInfo::new);
+		readArray(str, abode, GAbodeInfo::new);
+		readArray(str, villager, GVillagerInfo::new);
+		readArray(str, specialVillager, GSpecialVillagerInfo::new);
+		readArray(str, tree, GTreeInfo::new);
+		readArray(str, singleMapFixed, GSingleMapFixedInfo::new);
+		readArray(str, scriptHighlight, GScriptHighlightInfo::new);
+		readArray(str, mapShield, GMapShieldInfo::new);
+		ball.read(str);
+		town.read(str);
+		readArray(str, job, GJobInfo::new);
+		readArray(str, feature, GFeatureInfo::new);
+		readArray(str, flowers, GFlowersInfo::new);
+		readArray(str, animatedStatic, GAnimatedStaticInfo::new);
+		readArray(str, mobileObject, GMobileObjectInfo::new);
+		scaffold.read(str);
+		readArray(str, mobileStatic, GMobileStaticInfo::new);
+		readArray(str, pot, GPotInfo::new);
+		prayerIcon.read(str);
+		prayerSite.read(str);
+		readArray(str, showNeeds, GShowNeedsInfo::new);
+		readArray(str, townDesire, GTownDesireInfo::new);
+		worshipSiteUpgrade.read(str);
+		readArray(str, helpSpirit, HelpSpiritInfo::new);
+		arrow.read(str);
+		readArray(str, spotVisual, GSpotVisualInfo::new);
+		readArray(str, effect, GEffectInfo::new);
+		readArray(str, field, GFieldInfo::new);
+		readArray(str, fieldType, GFieldTypeInfo::new);
+		fishFarm.read(str);
+		readArray(str, footballPosition, GFootballPositionInfo::new);
+		readArray(str, playtime, GPlaytimeInfo::new);
+		player.read(str);
+		sound.read(str);
+		belief.read(str);
+		readArray(str, helpSpritesGuidance, GHelpSpritesGuidance::new);
+		influence.read(str);
+		helpSystem.read(str);
+		readArray(str, alignment, GAlignmentInfo::new);
+		readArray(str, reaction, ReactionInfo::new);
+		readArray(str, creatureAction, CreatureActionInfo::new);
+		readArray(str, creatureDesireAction1, CreatureDesireActionEntry::new);
+		readArray(str, creatureDesireAction2, CreatureDesireActionEntry::new);
+		readArray(str, creatureDesireAction3, CreatureDesireActionEntry::new);
+		readArray(str, creatureDesireDependency, CreatureDesireDependency::new);
+		readArray(str, creatureInitialDesire, CreatureInitialDesireInfo::new);
+		readArray(str, desireSourceTable, CreatureDesireSourceTable::new);
+		readArray(str, creatureInitialSource1, CreatureInitialSourceInfo::new);
+		readArray(str, creatureInitialSource2, CreatureInitialSourceInfo::new);
+		readArray(str, creatureSourceBounds, CreatureSourceBoundsInfo::new);
+		readArray(str, creatureDesireAttribute, CreatureDesireAttributeEntry::new);
+		readArray(str, creatureActionKnownAboutEntry, CreatureActionKnownAboutEntry::new);
+		readArray(str, creatureMagicActionKnownAboutEntry, CreatureMagicActionKnownAboutEntry::new);
+		readArray(str, creatureMimic, CreatureMimicInfo::new);
+		readArray(str, terrainMaterial, GTerrainMaterialInfo::new);
+		readArray(str, tribe, GTribeInfo::new);
+		readArray(str, speedThreshold, GSpeedThreshold::new);
+		pBall.read(str);
+		pFootball.read(str);
+		readArray(str, pFootballPosition, GPFootballPositionInfo::new);
+		readArray(str, dance, GDanceInfo::new);
+		readArray(str, villagerStateTable, GVillagerStateTableInfo::new);
+		readArray(str, animalStateTable, GAnimalStateTableInfo::new);
+		readArray(str, totemStatue, GTotemStatueInfo::new);
+		readArray(str, bigForest, GBigForestInfo::new);
+		readArray(str, furniture, GFurnitureInfo::new);
+		readArray(str, weather, GWeatherInfo::new);
+		readArray(str, climate, GClimateInfo::new);
+		spellSystem.read(str);
+		readArray(str, vortex, GVortexInfo::new);
+		readArray(str, magicFireBall, GMagicFireBallInfo::new);
+		readArray(str, reward, GRewardInfo::new);
+		leashSelector.read(str);
+		readArray(str, rewardProgressGood, GRewardProgressGood::new);
+		readArray(str, rewardProgressEvil, GRewardProgressEvil::new);
+		readArray(str, spookyVoice, GSpookyVoiceInfo::new);
+		readArray(str, scriptOpposingCreature, GScriptOpposingCreature::new);
+		readArray(str, toolTips, GHelpSystemTooltipsInfo::new);
+	}
+
+	@Override
+	public void write(EndianDataOutputStream str) throws Exception {
+		throw new RuntimeException("Method not implemented");
+	}
+
+	private static <T extends Struct> void readArray(EndianDataInputStream str, T[] arr, Supplier<T> supplier) throws Exception {
+		for (int i = 0; i < arr.length; i++) {
+			T obj = supplier.get();
+			obj.read(str);
+			arr[i] = obj;
+		}
+	}
+}

@@ -1,0 +1,96 @@
+sourceCompatibility = 11
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../assets"]
+
+project.ext.mainClassName = "it.ld.bw.lndgui.DesktopLauncher"
+project.ext.assetsDir = new File("../assets")
+
+import org.gradle.internal.os.OperatingSystem
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+tasks.register("packUI") {
+    inputs.dir("../assets-raw/ui")
+    outputs.dir("../assets/ui")
+
+    doLast {
+        def settings = new TexturePacker.Settings()
+
+        settings.maxWidth = 2048
+        settings.maxHeight = 2048
+        settings.combineSubdirectories = true
+        settings.flattenPaths = true
+        settings.paddingX = 2
+        settings.paddingY = 2
+        settings.duplicatePadding = true
+        settings.bleed = true
+        settings.filterMin = Texture.TextureFilter.Nearest
+        settings.filterMag = Texture.TextureFilter.Nearest
+
+        TexturePacker.process(
+                settings,
+                file("../assets-raw/ui").absolutePath,
+                file("../assets/ui").absolutePath,
+                "uiskin"
+        )
+
+        println "UI atlas updated"
+    }
+}
+
+tasks.register("copyRawResources", Copy) {
+	from("../assets-raw/ui") {
+		include "uiskin.json"
+	}
+	from("../assets-raw/ui/fonts") {
+		include "*.fnt"
+    }
+    into "../assets/ui"
+}
+
+tasks.named("processResources") {
+    dependsOn("packUI", "copyRawResources")
+}
+
+tasks.register('runDesktop', JavaExec) {
+    dependsOn classes
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+
+    if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
+        // Required to run on macOS
+        jvmArgs += "-XstartOnFirstThread"
+    }
+}
+
+tasks.register('debug', JavaExec) {
+    dependsOn classes
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+    debug = true
+}
+
+tasks.register('dist', Jar) {
+	archiveBaseName.set("BWLandEditorGUI")
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
+
+dist.dependsOn classes
+
+eclipse.project.name = appName + "-desktop"

@@ -1,0 +1,279 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+    }
+
+    dependencies {
+        classpath 'com.badlogicgames.gdx:gdx-tools:1.14.0'
+        classpath 'org.beryx:badass-runtime-plugin:1.13.1'
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+
+    version = '0.5'
+    ext {
+        appName = "BWLandEditorGUI"
+        gdxVersion = '1.14.0'
+        roboVMVersion = '2.3.21'
+        box2DLightsVersion = '1.5'
+        ashleyVersion = '1.7.4'
+        aiVersion = '1.8.2'
+        gdxControllersVersion = '2.2.1'
+        gdxNativefilechooserVersion = '2.4.0'
+        lwjglVersion = '3.3.3'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
+    }
+}
+
+project(":core") {
+    apply plugin: "java-library"
+	
+	jar {
+	    archiveBaseName.set(appName)
+	    archiveClassifier.set("core")
+	}
+	
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "games.spooky.gdx:gdx-nativefilechooser:$gdxNativefilechooserVersion"
+        api project(':LandEditor')
+
+        implementation 'org.slf4j:slf4j-simple:2.0.16'
+    }
+}
+
+project(":desktop") {
+    apply plugin: "java-library"
+    apply plugin: "application"
+    apply plugin: "org.beryx.runtime"
+
+    application {
+        mainClass = 'it.ld.bw.lndgui.DesktopLauncher'
+        applicationName = appName
+    }
+
+    jar {
+        archiveBaseName.set(appName)
+    	archiveClassifier.set("desktop")
+    }
+
+    configurations {
+        windowsRuntime
+        linuxRuntime
+        macosRuntime
+    }
+
+    dependencies {
+        implementation project(":core")
+
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        implementation "games.spooky.gdx:gdx-nativefilechooser-desktop-lwjgl:$gdxNativefilechooserVersion"
+        implementation "io.javalin:javalin:6.3.0"
+        implementation "com.fasterxml.jackson.core:jackson-core:2.17.2"
+
+        // Required also for jpackageImage/runtime, otherwise the exe could fail with "Failed to launch JVM"
+        runtimeOnly "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:$lwjglVersion:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-jemalloc:$lwjglVersion:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-openal:$lwjglVersion:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:$lwjglVersion:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-stb:$lwjglVersion:natives-windows"
+
+        // Distinct configurations used by jarWindows tor create the fat jar file
+        windowsRuntime "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        windowsRuntime "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
+        windowsRuntime "org.lwjgl:lwjgl-glfw:$lwjglVersion:natives-windows"
+        windowsRuntime "org.lwjgl:lwjgl-jemalloc:$lwjglVersion:natives-windows"
+        windowsRuntime "org.lwjgl:lwjgl-openal:$lwjglVersion:natives-windows"
+        windowsRuntime "org.lwjgl:lwjgl-opengl:$lwjglVersion:natives-windows"
+        windowsRuntime "org.lwjgl:lwjgl-stb:$lwjglVersion:natives-windows"
+
+        linuxRuntime "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        linuxRuntime "org.lwjgl:lwjgl:$lwjglVersion:natives-linux"
+        linuxRuntime "org.lwjgl:lwjgl-glfw:$lwjglVersion:natives-linux"
+        linuxRuntime "org.lwjgl:lwjgl-jemalloc:$lwjglVersion:natives-linux"
+        linuxRuntime "org.lwjgl:lwjgl-openal:$lwjglVersion:natives-linux"
+        linuxRuntime "org.lwjgl:lwjgl-opengl:$lwjglVersion:natives-linux"
+        linuxRuntime "org.lwjgl:lwjgl-stb:$lwjglVersion:natives-linux"
+
+        macosRuntime "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        macosRuntime "org.lwjgl:lwjgl:$lwjglVersion:natives-macos"
+        macosRuntime "org.lwjgl:lwjgl-glfw:$lwjglVersion:natives-macos"
+        macosRuntime "org.lwjgl:lwjgl-jemalloc:$lwjglVersion:natives-macos"
+        macosRuntime "org.lwjgl:lwjgl-openal:$lwjglVersion:natives-macos"
+        macosRuntime "org.lwjgl:lwjgl-opengl:$lwjglVersion:natives-macos"
+        macosRuntime "org.lwjgl:lwjgl-stb:$lwjglVersion:natives-macos"
+
+        macosRuntime "org.lwjgl:lwjgl:$lwjglVersion:natives-macos-arm64"
+        macosRuntime "org.lwjgl:lwjgl-glfw:$lwjglVersion:natives-macos-arm64"
+        macosRuntime "org.lwjgl:lwjgl-jemalloc:$lwjglVersion:natives-macos-arm64"
+        macosRuntime "org.lwjgl:lwjgl-openal:$lwjglVersion:natives-macos-arm64"
+        macosRuntime "org.lwjgl:lwjgl-opengl:$lwjglVersion:natives-macos-arm64"
+        macosRuntime "org.lwjgl:lwjgl-stb:$lwjglVersion:natives-macos-arm64"
+    }
+
+    runtime {
+        options = [
+            //'--strip-debug',
+            '--compress', '2',
+            '--no-header-files',
+            '--no-man-pages'
+        ]
+
+        modules = [
+            'java.base',
+            'java.desktop',
+            'java.logging',
+            'java.naming',
+            'java.net.http',
+            'java.management',
+            'jdk.management',
+            'jdk.unsupported'
+        ]
+
+        launcher {
+            //For debug builds use -PdebugConsole (see imageOptions below)
+            noConsole = true
+        }
+
+        jpackage {
+            imageName = appName
+            installerName = appName
+            appVersion = version
+
+            imageOptions = project.hasProperty("debugConsole") ? [
+                '--icon', file('icons/app.ico').absolutePath,
+                '--win-console'
+            ] : [
+                '--icon', file('icons/app.ico').absolutePath
+            ]
+
+            //Building desktop:jpackage requires WiX installed and included in the PATH variable
+            installerType = 'msi'
+            installerOptions = [
+                '--win-menu',
+                '--win-shortcut',
+                '--win-dir-chooser',
+                '--win-per-user-install'
+            ]
+        }
+    }
+
+    tasks.named("jpackageImage") {
+        doLast {
+            copy {
+                from("${rootDir}/LICENSE.TXT")
+                from(rootDir) {
+                    include "*.md"
+                }
+                from("${rootDir}/User guide.htm")
+                from("${rootDir}/docs") {
+                    into "docs"
+                }
+                from("${rootDir}/changelog.txt")
+
+                into "${buildDir}/jpackage/${appName}"
+            }
+        }
+    }
+
+    task jarWindows(type: Jar) {
+        archiveBaseName = appName
+        archiveClassifier = "windows"
+
+        dependsOn ":core:compileJava"
+        dependsOn ":LandEditor:compileJava"
+        dependsOn ":desktop:compileJava"
+
+        manifest {
+            attributes "Main-Class": "it.ld.bw.lndgui.DesktopLauncher"
+        }
+
+        from sourceSets.main.output
+        from { project(":core").sourceSets.main.output }
+        from { project(":LandEditor").sourceSets.main.output }
+
+        from {
+            configurations.runtimeClasspath
+                .filter { it.exists() && !it.name.startsWith("core-") && !it.name.startsWith("LandEditor-") }
+                .filter {
+                    def n = it.name.toLowerCase()
+                    !n.contains("natives-linux") &&
+                    !n.contains("natives-macos") &&
+                    !n.contains("natives-macos-arm64")
+                }
+                .collect { it.isDirectory() ? it : zipTree(it) }
+        }
+
+        from {
+            configurations.windowsRuntime
+                .filter { it.exists() }
+                .collect { it.isDirectory() ? it : zipTree(it) }
+        }
+
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+    
+    
+    task jarWindowsLinux(type: Jar) {
+	    archiveBaseName = appName
+	    archiveClassifier = "windows-linux"
+		
+	    dependsOn ":core:compileJava"
+	    dependsOn ":LandEditor:compileJava"
+	    dependsOn ":desktop:compileJava"
+		
+	    manifest {
+	        attributes "Main-Class": "it.ld.bw.lndgui.DesktopLauncher"
+	    }
+		
+	    from sourceSets.main.output
+	    from { project(":core").sourceSets.main.output }
+	    from { project(":LandEditor").sourceSets.main.output }
+		
+	    // Common Java dependencies, without platform-specific natives
+	    from {
+	        configurations.runtimeClasspath
+	            .filter { it.exists() && !it.name.startsWith("core-") && !it.name.startsWith("LandEditor-") }
+	            .filter {
+	                def n = it.name.toLowerCase()
+	                !n.contains("natives-windows") &&
+	                !n.contains("natives-linux") &&
+	                !n.contains("natives-macos") &&
+	                !n.contains("natives-macos-arm64")
+	            }
+	            .collect { it.isDirectory() ? it : zipTree(it) }
+	    }
+	
+	    // Native Windows + Linux
+	    from {
+	        configurations.windowsRuntime
+	            .filter { it.exists() }
+	            .collect { it.isDirectory() ? it : zipTree(it) }
+	    }
+	
+	    from {
+	        configurations.linuxRuntime
+	            .filter { it.exists() }
+	            .collect { it.isDirectory() ? it : zipTree(it) }
+	    }
+	
+	    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	}
+}

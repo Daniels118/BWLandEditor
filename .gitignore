@@ -1,0 +1,11 @@
+# Eclipse workspace
+.metadata/
+
+# Java build output
+bin/
+target/
+build/
+out/
+
+# Compiled files
+*.class
