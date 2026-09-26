@@ -71,15 +71,15 @@ It provides a 3D editing environment for terrain sculpting, materials and countr
 
 ## Documentation
 
-The complete user guide is available in the [`docs`](docs/index.htm) directory and includes screenshots and descriptions of the editor tools.
+The complete user guide is available in the [`docs`](BWLandEditorGUI/docs/index.htm) directory and includes screenshots and descriptions of the editor tools.
 
 Documentation is available in:
 
-- [English](docs/index.htm)
-- [Italiano](docs/it/index.htm)
-- [Français](docs/fr/index.htm)
-- [Deutsch](docs/de/index.htm)
-- [Español](docs/es/index.htm)
+- [English](BWLandEditorGUI/docs/index.htm)
+- [Italiano](BWLandEditorGUI/docs/it/index.htm)
+- [Français](BWLandEditorGUI/docs/fr/index.htm)
+- [Deutsch](BWLandEditorGUI/docs/de/index.htm)
+- [Español](BWLandEditorGUI/docs/es/index.htm)
 
 The `docs` directory can also be used as the source directory for GitHub Pages.
 
@@ -91,7 +91,7 @@ The `docs` directory can also be used as the source directory for GitHub Pages.
 4. Edit the landscape, place objects and modify the LHX script as needed.
 5. Save the landscape and script from the **File** menu.
 
-For detailed instructions, see the [user guide](docs/index.htm).
+For detailed instructions, see the [user guide](BWLandEditorGUI/docs/index.htm).
 
 ## Main editing workflow
 
