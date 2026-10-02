@@ -71,7 +71,7 @@ It provides a 3D editing environment for terrain sculpting, materials and countr
 
 ## Documentation
 
-The complete user guide is available in the [`docs`](BWLandEditorGUI/docs/index.htm) directory and includes screenshots and descriptions of the editor tools.
+The complete user guide is available in the `docs` directory and includes screenshots and descriptions of the editor tools.
 
 Documentation is available in:
 
