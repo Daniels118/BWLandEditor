@@ -75,11 +75,11 @@ The complete user guide is available in the [`docs`](BWLandEditorGUI/docs/index.
 
 Documentation is available in:
 
-- [English](BWLandEditorGUI/docs/index.htm)
-- [Italiano](BWLandEditorGUI/docs/it/index.htm)
-- [Français](BWLandEditorGUI/docs/fr/index.htm)
-- [Deutsch](BWLandEditorGUI/docs/de/index.htm)
-- [Español](BWLandEditorGUI/docs/es/index.htm)
+- [English](https://daniels118.github.io/BWLandEditor/)
+- [Italiano](https://daniels118.github.io/BWLandEditor/it/index.htm)
+- [Français](https://daniels118.github.io/BWLandEditor/fr/index.htm)
+- [Deutsch](https://daniels118.github.io/BWLandEditor/de/index.htm)
+- [Español](https://daniels118.github.io/BWLandEditor/es/index.htm)
 
 The `docs` directory can also be used as the source directory for GitHub Pages.
 
@@ -91,7 +91,7 @@ The `docs` directory can also be used as the source directory for GitHub Pages.
 4. Edit the landscape, place objects and modify the LHX script as needed.
 5. Save the landscape and script from the **File** menu.
 
-For detailed instructions, see the [user guide](BWLandEditorGUI/docs/index.htm).
+For detailed instructions, see the [user guide]([https://daniels118.github.io/BWLandEditor/).
 
 ## Main editing workflow
 
