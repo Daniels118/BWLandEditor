@@ -1147,6 +1147,7 @@ public class UIScreen implements Screen {
 		view3D.pickCoord((coord, button) -> {
 			if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
 				app.getExternalEditor().insertCoord(coord);
+				view3D.showTmpMarker(coord);
 				showTempStatusMessage(I18n.tr("pickCoord.sent"));
 			} else {
 				String val = String.format(Locale.US, "[%.2f, %.2f]", coord.x, coord.z);
