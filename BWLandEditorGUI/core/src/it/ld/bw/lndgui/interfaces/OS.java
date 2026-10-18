@@ -1,5 +1,6 @@
 package it.ld.bw.lndgui.interfaces;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface OS {
 	public ImageWriter getImageWriter();
 	public void openURL(String url);
 	public Path getAppDir();
+	public void installVSCodeExtension() throws IOException, InterruptedException;
 }

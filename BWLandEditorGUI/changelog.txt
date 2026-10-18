@@ -1,3 +1,8 @@
+Version 0.6
+- Added extension for Visual Studio Code
+- Fixed integration with external editor
+- Suppressed dev messages
+
 Version 0.5
 - Implemented parsing of LHX script files
 - Fixed folder picker dialog
