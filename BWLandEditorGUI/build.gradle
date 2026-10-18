@@ -85,6 +85,7 @@ project(":desktop") {
         implementation "games.spooky.gdx:gdx-nativefilechooser-desktop-lwjgl:$gdxNativefilechooserVersion"
         implementation "io.javalin:javalin:6.3.0"
         implementation "com.fasterxml.jackson.core:jackson-core:2.17.2"
+        implementation "com.fasterxml.jackson.core:jackson-databind:2.17.2"
 
         // Required also for jpackageImage/runtime, otherwise the exe could fail with "Failed to launch JVM"
         runtimeOnly "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
