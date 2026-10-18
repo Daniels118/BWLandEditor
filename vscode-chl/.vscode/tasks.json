@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "package",
+			"problemMatcher": [],
+			"label": "npm: package",
+			"detail": "vsce package --no-dependencies --out ../BWLandEditorGUI/assets/vscode/chl-language.vsix"
+		}
+	]
+}
