@@ -1,0 +1,76 @@
+{
+  "name": "chl-language",
+  "displayName": "CHL Language",
+  "description": "Support for CHL language",
+  "version": "0.0.1",
+  "icon": "images/icon.png",
+  "publisher": "Daniels118",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "chl",
+        "aliases": [
+          "CHL",
+          "chl"
+        ],
+        "extensions": [
+          ".chl"
+        ],
+        "firstLine": "^//!CHL",
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "chl",
+        "scopeName": "source.chl",
+        "path": "./syntaxes/chl.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "CHL",
+      "properties": {
+        "chl.cmdPort": {
+          "type": "integer",
+          "default": 8085,
+          "description": "Local REST endpoint. Set to 0 to disable."
+        },
+        "chl.landViewerUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8086",
+          "description": "Land viewer REST endpoint. Leave empty to disable."
+        },
+        "chl.hoverPostDebounceMs": {
+          "type": "number",
+          "default": 250,
+          "minimum": 0,
+          "description": "Debounce (ms) to avoid too many requests while the cursor is moving."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package --no-dependencies --out ../BWLandEditorGUI/assets/vscode/chl-language.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^4.0.0",
+    "typescript": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Daniels118/BWLandEditor.git",
+    "directory": "vscode-chl"
+  }
+}
