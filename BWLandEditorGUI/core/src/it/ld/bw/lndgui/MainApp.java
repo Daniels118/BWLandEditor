@@ -115,6 +115,7 @@ import it.ld.utils.UndoableEdit;
 
 public class MainApp extends Game {
 	public static final String APP_NAME = "Black & White Land Editor";
+	public static final boolean DEV = "1".equals(System.getProperty("dev"));
 	
 	public enum Property {
 		SMALL_BUMP, SKY_TEXTURE, LHX, LAND, FOOTPATHS, LAND_CHANGED, LHX_CHANGED, UNDO_HISTORY,
