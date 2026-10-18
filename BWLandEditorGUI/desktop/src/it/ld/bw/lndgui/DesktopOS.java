@@ -9,6 +9,7 @@ import java.awt.datatransfer.FlavorListener;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
@@ -268,6 +269,11 @@ public class DesktopOS implements OS, AutoCloseable {
 	        }
 	    }
 	    return Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
+	}
+	
+	@Override
+	public void installVSCodeExtension() throws IOException, InterruptedException {
+	    VSCodeExtensionInstaller.install();
 	}
 	
 	@Override

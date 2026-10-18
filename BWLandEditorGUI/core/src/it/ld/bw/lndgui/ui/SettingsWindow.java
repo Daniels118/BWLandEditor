@@ -1,6 +1,8 @@
 package it.ld.bw.lndgui.ui;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
@@ -49,6 +51,7 @@ public class SettingsWindow extends SmartWindow {
 	private Map<Settings, Actor> settingsToField = new HashMap<>();
 	
 	private Map<Category, java.util.List<Settings>> filteredSettings;
+	private boolean extensionInstallRunning;
 	
 	public static SettingsWindow showSingleInstance(MainApp app, Stage stage, Skin skin, boolean modal) {
 		SettingsWindow window = (SettingsWindow) SmartWindow.getSingleInstance("mainSettings");
@@ -71,12 +74,12 @@ public class SettingsWindow extends SmartWindow {
 	private SettingsWindow(MainApp app, Skin skin) {
 		super(I18n.tr("settings.title"), skin, Attribute.RESIZABLE);
 		
-		filteredSettings = Settings.search("");
+		filteredSettings = searchSettings("");
 		searchField = new TextField("", skin);
 		searchField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				filteredSettings = Settings.search(searchField.getText());
+				filteredSettings = searchSettings(searchField.getText());
 				categoryList.setItems(new Array<>(filteredSettings.keySet().toArray()));
 				categoryList.fire(new ChangeEvent());
 			}
@@ -93,10 +96,10 @@ public class SettingsWindow extends SmartWindow {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				categoryPanel.clear();
+				settingsToField.clear();
 				Category category = categoryList.getSelected();
 				if (category == null) {
 					categoryTitle.setText("");
-					settingsToField.clear();
 				} else {
 					categoryTitle.setText(category.toString());
 					java.util.List<Settings> settings = filteredSettings.get(category);
@@ -290,6 +293,14 @@ public class SettingsWindow extends SmartWindow {
 						categoryPanel.row();
 						settingsToField.put(setting, field);
 					}
+
+					if (matchesCustomCategory(category, searchField.getText())) {
+						Table customPanel = createCustomCategoryPanel(category, app, skin);
+						if (customPanel != null) {
+							categoryPanel.add(customPanel).colspan(2).growX().padTop(settings.isEmpty() ? 0 : 16);
+							categoryPanel.row();
+						}
+					}
 				}
 				categoryPanel.add().colspan(2).expand();	//Filler
 				pack();
@@ -305,6 +316,113 @@ public class SettingsWindow extends SmartWindow {
 		Settings.listeners.add(settingsChengeListener);
 	}
 	
+	private Map<Category, java.util.List<Settings>> searchSettings(String query) {
+		Map<Category, java.util.List<Settings>> result = Settings.search(query);
+		if (matchesCustomCategory(Category.INTEGRATIONS, query)) {
+			result.putIfAbsent(Category.INTEGRATIONS, Collections.emptyList());
+		}
+		return result;
+	}
+
+	private boolean matchesCustomCategory(Category category, String query) {
+		if (query == null || query.trim().isEmpty()) return true;
+
+		String normalized = query.trim().toLowerCase(Locale.ROOT);
+		switch (category) {
+			case INTEGRATIONS:
+				return I18n.tr("settings.integrations.vscode.title").toLowerCase(Locale.ROOT).contains(normalized)
+						|| I18n.tr("settings.integrations.vscode.description").toLowerCase(Locale.ROOT).contains(normalized)
+						|| I18n.tr("settings.integrations.vscode.install").toLowerCase(Locale.ROOT).contains(normalized);
+			default:
+				return false;
+		}
+	}
+
+	private Table createCustomCategoryPanel(Category category, MainApp app, Skin skin) {
+		switch (category) {
+			case INTEGRATIONS:
+				return createIntegrationsPanel(app, skin);
+			default:
+				return null;
+		}
+	}
+
+	private Table createIntegrationsPanel(MainApp app, Skin skin) {
+		Table panel = new Table();
+		panel.defaults().left().padBottom(6);
+
+		panel.add(new Label(I18n.tr("settings.integrations.vscode.title"), skin)).left().row();
+		panel.add(new Label(I18n.tr("settings.integrations.vscode.description"), skin)).left().row();
+
+		String buttonKey = extensionInstallRunning ? "settings.integrations.vscode.installing" : "settings.integrations.vscode.install";
+		TextButton installButton = new TextButton(I18n.tr(buttonKey), skin);
+		installButton.setDisabled(extensionInstallRunning);
+		installButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (extensionInstallRunning) return;
+				installVSCodeExtension(app, installButton);
+			}
+		});
+
+		panel.add(installButton).left().row();
+		return panel;
+	}
+
+	private void installVSCodeExtension(MainApp app, TextButton installButton) {
+		if (extensionInstallRunning) return;
+
+		extensionInstallRunning = true;
+		installButton.setDisabled(true);
+		installButton.setText(I18n.tr("settings.integrations.vscode.installing"));
+
+		Thread worker = new Thread(() -> {
+			boolean success = false;
+			boolean interrupted = false;
+			String errorDetails = null;
+
+			try {
+				app.getOS().installVSCodeExtension();
+				success = true;
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				interrupted = true;
+			} catch (Exception e) {
+				errorDetails = e.getMessage();
+				if (errorDetails == null || errorDetails.trim().isEmpty()) {
+					errorDetails = e.getClass().getSimpleName();
+				}
+			}
+
+			final boolean installSuccess = success;
+			final boolean installInterrupted = interrupted;
+			final String installError = errorDetails;
+
+			Gdx.app.postRunnable(() -> {
+				extensionInstallRunning = false;
+				installButton.setDisabled(false);
+				installButton.setText(I18n.tr("settings.integrations.vscode.install"));
+
+				Stage stage = getStage();
+				if (stage == null) return;
+
+				String message;
+				if (installSuccess) {
+					message = I18n.tr("settings.integrations.vscode.installed");
+				} else if (installInterrupted) {
+					message = I18n.tr("settings.integrations.vscode.interrupted");
+				} else {
+					message = I18n.tr("settings.integrations.vscode.failed", installError);
+				}
+
+				MessageBox.show(stage, I18n.tr("settings.integrations.vscode.title"), message, installSuccess ? MessageType.INFO : MessageType.ERROR);
+			});
+		}, "vscode-extension-installer");
+
+		worker.setDaemon(true);
+		worker.start();
+	}
+
 	private final UChangeListener settingsChengeListener = new UChangeListener() {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@Override

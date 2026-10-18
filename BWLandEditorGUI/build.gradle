@@ -16,7 +16,7 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
 
-    version = '0.5'
+    version = '0.6'
     ext {
         appName = "BWLandEditorGUI"
         gdxVersion = '1.14.0'
