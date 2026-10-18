@@ -987,10 +987,11 @@ public class UIScreen implements Screen {
 		addTool(r, "tool-location", Tool.PICK_COORD);
 		r.add("tool-camera", I18n.tr("toolbar.screenshot"), () -> app.saveScreenshot());
 		
-		//TODO remove this before build
-		r.add("tool-magic-hat", "Test", () -> {
-			MessageBox.show(stage, "Test", "This is just a test");
-		});
+		if (MainApp.DEV) {
+			r.add("tool-magic-hat", "Test", () -> {
+				MessageBox.show(stage, "Test", "This is just a test");
+			});
+		}
 	    
 	    r.addFiller();
 	    r.add("mode-sculpt", I18n.tr("toolbar.editmode.sculpt"), () -> app.setEditMode(EditMode.SCULPT), () -> app.getEditMode() == EditMode.SCULPT);

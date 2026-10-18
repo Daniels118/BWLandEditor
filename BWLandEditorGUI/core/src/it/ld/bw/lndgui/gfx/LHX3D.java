@@ -31,6 +31,7 @@ import it.ld.bw.lhx.Command;
 import it.ld.bw.lhx.LHXCoord;
 import it.ld.bw.lhx.LHXFile;
 import it.ld.bw.lhx.Statement;
+import it.ld.bw.lndgui.MainApp;
 import it.ld.bw.lndgui.SelectionMode;
 import it.ld.bw.lndgui.gfx.L3DModelManager.ModelInfo;
 import it.ld.bw.lndgui.tools.Selection;
@@ -269,7 +270,7 @@ public class LHX3D implements AutoCloseable {
 						obj.setSyntaxError(false);
 					}
 				} else {
-					System.err.println("Command not implemented: " + stmt.getCommand());
+					printDevErr("Command not implemented: " + stmt.getCommand());
 				}
 			}
 			if (remove) {
@@ -828,27 +829,27 @@ public class LHX3D implements AutoCloseable {
 	};
 	
 	private static final CommandImpl createWeatherClimate = (lhx3d, stmt, object) -> {
-		System.err.println("Command not implemented: " + stmt.getCommand());
+		printDevErr("Command not implemented: " + stmt.getCommand());
 		return null;	//TODO
 	};
 	
 	private static final CommandImpl createWeatherClimateRain = (lhx3d, stmt, object) -> {
-		System.err.println("Command not implemented: " + stmt.getCommand());
+		printDevErr("Command not implemented: " + stmt.getCommand());
 		return null;	//TODO
 	};
 	
 	private static final CommandImpl createWeatherClimateTemp = (lhx3d, stmt, object) -> {
-		System.err.println("Command not implemented: " + stmt.getCommand());
+		printDevErr("Command not implemented: " + stmt.getCommand());
 		return null;	//TODO
 	};
 	
 	private static final CommandImpl createWeatherClimateWind = (lhx3d, stmt, object) -> {
-		System.err.println("Command not implemented: " + stmt.getCommand());
+		printDevErr("Command not implemented: " + stmt.getCommand());
 		return null;	//TODO
 	};
 	
 	private static final CommandImpl createWorshipSite = (lhx3d, stmt, object) -> {
-		System.err.println("Command not implemented: " + stmt.getCommand());
+		printDevErr("Command not implemented: " + stmt.getCommand());
 		return null;	//TODO
 	};
 	
@@ -1200,6 +1201,12 @@ public class LHX3D implements AutoCloseable {
 		}
 		objects.clear();
 		lhx.listeners.remove(lhxChangeListener);
+	}
+	
+	private static final void printDevErr(String msg) {
+		if (MainApp.DEV) {
+			System.err.println(msg);
+		}
 	}
 	
 	
